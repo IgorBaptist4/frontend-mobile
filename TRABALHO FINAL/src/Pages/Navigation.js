@@ -10,7 +10,8 @@ import HomeScreen from './Home';
 import CreateScreen from './Create';
 import UpdateScreen from './Update';
 import DeleteScreen from './Delete';
-import ExitScreen from './Exit';
+import LoginScreen from './Login';
+
 
 const Tab = createBottomTabNavigator();
 
@@ -30,17 +31,13 @@ const icons = {
     name: 'update',
   },
 
-  Delete: {
-    lib: MaterialIcons,
-    name: 'delete',
-  },
   Exit: {
     lib: Ionicons,
     name: 'exit',
   },
 };
 
-export default function Navigation() {
+ const Navigation = ({navigation}) => {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -76,16 +73,13 @@ export default function Navigation() {
       />
 
       <Tab.Screen
-        name="Delete"
-        component={DeleteScreen}
-        options={{title: 'Excluir'}}
-      />
-
-      <Tab.Screen
         name="Exit"
-        component={ExitScreen}
+        component={LoginScreen}
         options={{title: 'Sair'}}
+        onPress={() => navigation.navigate('Login')}
       />
     </Tab.Navigator>
   );
 }
+
+export default Navigation
