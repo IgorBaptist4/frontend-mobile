@@ -5,6 +5,7 @@ import {View, Text,TouchableHighlight,StyleSheet,TextInput,Alert,ImageBackground
 import { ScrollView } from 'react-native-gesture-handler';
 import api from '../../service/api';
 import colors from '../colors.json';
+import Header from '../components/header';
 
 
 const Image = {uri:"https://i.pinimg.com/564x/43/21/88/432188f502b9a625f74a7d8cacbe5b8b.jpg"}
@@ -23,7 +24,7 @@ const Create = ({navigation}) => {
             nome:nome,
         }
 
-        api.post('/',funcionario) 
+        api.post('/funcionario',funcionario) 
         
         .then(response => response.data)
         .then(data => {
@@ -36,7 +37,7 @@ const Create = ({navigation}) => {
 
         .catch(error => {
             console.log(error);
-            Alert.alert("Erro no servidor", "Por favor verifique sua conexão e tente novamente.");
+            Alert.alert("ERRO!");
         })       
 
         //.then(() => navigation.replace('Home'))
@@ -48,6 +49,7 @@ const Create = ({navigation}) => {
 
    <>
     <StatusBar backgroundColor={colors.statusColor} />
+    <Header/>
     <ImageBackground source={Image} style={styles.image}>   
         <ScrollView style={styles.scroll}>       
             <View style={styles.container}>             
@@ -83,13 +85,14 @@ const styles = StyleSheet.create({
     form: {
        flexDirection:'column',     
        alignItems:'center',
-       marginTop:'30%'
+       marginTop:'25%'
     },
 
     text: {
         fontFamily:'Roboto',
         fontSize:15,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        color:'#6c6c6a'
     },
 
     textInput: {  
@@ -131,6 +134,5 @@ const styles = StyleSheet.create({
     }
    
     })
-
     
 export default Create;

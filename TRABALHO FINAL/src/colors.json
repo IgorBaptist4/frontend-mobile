@@ -1,6 +1,8 @@
+
 {
   
-    "primaria": "#363636",
-    "statusColor":"#363636"
-    
-  }
+  "primaria": "#363636",
+  "statusColor":"#c6c6c6",
+  "statusLoginColor":"#e7e7e7"
+  
+}

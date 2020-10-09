@@ -1,6 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import api from '../../service/api';
+import axios from 'axios'
 import 
 { 
     ScrollView, 
@@ -11,21 +12,22 @@ import
     TouchableOpacity, 
     StyleSheet, 
     TextInput,
-
 } from 'react-native';
+
 
 const Delete = () => {
 
     const [funcionario, setFuncionario] = useState([]);
-    console.log(funcionario, setFuncionario);
+    const [id, setId] = useState(0);
 
-    useEffect(() => {
+
+/*     useEffect(() => {
         const loadData = () => {
             api.get('/funcionario').then(response => { setFuncionario(response.data) })
         }
         loadData()
     }, [])
-
+ */
     const deleteData = (id, nome, cpf) => {
         alert(`Funcionario: ${nome} 
         registrado no cpf: ${cpf}
@@ -38,10 +40,14 @@ const Delete = () => {
 
     };
 
-    const searchBar = (id) => {
-        api.get(`/funcionario/${id}`).then(response => { setFuncionario(response.data) })
+    const searchBar = () => {
+        
+        console.log(id)
+        axios.get(`http://residencia-ecommerce.us-east-1.elasticbeanstalk.com/funcionario/${id}`, funcionario)
+        .then(response => {console.log(response); setFuncionario(response.data)})
+        .catch(error =>{console.log(error); alert("ERRO!")})
+        console.log({funcionario})
     };
-
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -68,13 +74,19 @@ const Delete = () => {
                     }}>Exclusão de funcionários</Text>
                 </View>
                         <View>
-                            <TextInput placeholder='Digite o id do funcionario' />
-                            <TouchableOpacity style={styles.icon} onPress={ () => alert('clicou')}>
+                            <TextInput placeholder='Digite o id do funcionario'
+                                  onChangeText={setId}
+                                  value={id}/>
+
+                            <TouchableOpacity style={styles.icon} onPress={() => searchBar()}>
                                 <Icon name="search" color="#000" size={25} />
+    
                             </TouchableOpacity>
+                            <View>
+          </View>
                         </View>
                 <View style={{ marginLeft: 10, marginRight: 10 }}>
-                    {funcionario.map(item => (
+                    {funcionario.filter(item => item.id === id).map(item => (
                         <View style={{
                             borderColor: "#2e2759",
                             borderWidth: 1,
